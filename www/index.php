@@ -32,6 +32,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
 <!-- get project title  -->
 <!-- own website starts here, the following may be changed as you like -->
+<h1>econMisc &mdash; miscellaneous econometrics functions</h1>
 
 <?php if ($handle=fopen('http://'.$domain.'/export/projtitl.php?group_name='.$group_name,'r')){
 $contents = '';
@@ -43,9 +44,27 @@ echo $contents; } ?>
 
 <!-- end of project description -->
 
-<p> No content added. </p>
+<p>This package is intended to be a collection of econometrics-related
+  functions.  It is intended <em>not to be well-targeted and
+  stable</em> package.  Just a "parking lot" for various functions on
+  their way to specialized or simply better-suited packages.  However,
+  the package should be working.  Feel free to download and use it,
+  exactly as other R packages.</p>
 
-<p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
+<h2>Motivation</h2>
+
+<p>As an empirical economist, I am occasionally writing functions
+  which might be of interest for the wider R community.  However,
+  they do not form a well targeted complete package.  Rather, they are
+  more like miscellaneous or even arbitrary functions, I find
+  necessary to implement myself.  Hence the package.</p>
+
+<p>Feel free to use these functions yourself in your favourite package
+  if you feel they fit to that.</p>
+
+<p> The <strong>project summary page</strong> you can
+find <a href="http://<?php echo $domain; ?>/projects/<?php echo
+$group_name; ?>/"><strong>here</strong></a>. </p>
 
 </body>
 </html>
