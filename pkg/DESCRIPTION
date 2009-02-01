@@ -1,0 +1,10 @@
+Package: econMisc
+Version: 0.1-0
+Date: 2009-02-01
+Title: Miscellaneous Econometric Functions
+Author: Ott Toomet <otoomet@ut.ee>
+Maintainer: Ott Toomet <otoomet@ut.ee>
+Depends: R, maxLik
+Description: Various econometric functions, including interval regression.
+License: GPL (>= 2)
+URL: http://econmisc.r-forge.r-project.org/

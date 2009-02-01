@@ -62,6 +62,12 @@ echo $contents; } ?>
 <p>Feel free to use these functions yourself in your favourite package
   if you feel they fit to that.</p>
 
+<h2>Current features</h2>
+
+<ul>
+  <li>Interval regression</li>
+  </ul>
+
 <p> The <strong>project summary page</strong> you can
 find <a href="http://<?php echo $domain; ?>/projects/<?php echo
 $group_name; ?>/"><strong>here</strong></a>. </p>
