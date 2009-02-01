@@ -72,7 +72,7 @@ interval <- function(formula, data, weights, start, boundaries,
     m <- match.call(expand.dots = FALSE)
     method <- match.arg(method)
     pfun <- switch(method, logistic = plogis, probit = pnorm,
-                   cloglog = pgumbel, cauchit = npcauchy)
+                   cloglog = pgumbel, cauchit = pcauchy)
     dfun <- switch(method, logistic = dlogis, probit = dnorm,
                    cloglog = dgumbel, cauchit = dcauchy)
     if(is.matrix(eval.parent(m$data)))
