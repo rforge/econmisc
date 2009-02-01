@@ -2,7 +2,8 @@ Package: econMisc
 Version: 0.1-0
 Date: 2009-02-01
 Title: Miscellaneous Econometric Functions
-Author: Ott Toomet <otoomet@ut.ee>
+Author: Ott Toomet <otoomet@ut.ee> and
+   Arne Henningsen <arne(dot)henningsen(at)googlemail(dot)com>
 Maintainer: Ott Toomet <otoomet@ut.ee>
 Depends: R (>= 2.4.0), maxLik (>= 0.5-1), sets (>= 0.5), VGAM (>= 0.7-7)
 Suggests: micEcon (>= 0.5-0)
