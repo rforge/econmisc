@@ -1,15 +1,3 @@
-
-<!-- This is the project specific website template -->
-<!-- It can be changed as liked or replaced by other content -->
-
-<?php
-
-$domain=ereg_replace('[^\.]*\.(.*)$','\1',$_SERVER['HTTP_HOST']);
-$group_name=ereg_replace('([^\.]*)\..*$','\1',$_SERVER['HTTP_HOST']);
-$themeroot='http://r-forge.r-project.org/themes/rforge/';
-
-echo '<?xml version="1.0" encoding="UTF-8"?>';
-?>
 <!DOCTYPE html
 	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -29,38 +17,26 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 <a href="/"><img src="<?php echo $themeroot; ?>/images/logo.png" border="0" alt="R-Forge Logo" /> </a> </td> </tr>
 </table>
 
-
-<!-- get project title  -->
 <!-- own website starts here, the following may be changed as you like -->
 <h1>econMisc &mdash; miscellaneous econometrics functions</h1>
-
-<?php if ($handle=fopen('http://'.$domain.'/export/projtitl.php?group_name='.$group_name,'r')){
-$contents = '';
-while (!feof($handle)) {
-	$contents .= fread($handle, 8192);
-}
-fclose($handle);
-echo $contents; } ?>
-
-<!-- end of project description -->
 
 <p>This package is intended to be a collection of econometrics-related
   functions.  It is intended <em>not to be well-targeted and
   stable</em> package.  Just a "parking lot" for various functions on
   their way to specialized or simply better-suited packages.  However,
-  the package should be working.  Feel free to download and use it,
-  exactly as other R packages.</p>
+  the package should be complete, working, and error-free.  Feel free
+  to download and use it exactly as any other R package.</p>
 
 <h2>Motivation</h2>
 
-<p>As an empirical economist, I am occasionally writing functions
+<p>As an empirical economists, we are occasionally writing functions
   which might be of interest for the wider R community.  However,
-  they do not form a well targeted complete package.  Rather, they are
-  more like miscellaneous or even arbitrary functions, I find
-  necessary to implement myself.  Hence the package.</p>
+  often they do not form a well targeted complete "package".  Rather,
+  they are more like miscellaneous or even arbitrary functions we find
+  necessary to implement ourselves.  Hence the package.</p>
 
-<p>Feel free to use these functions yourself in your favourite package
-  if you feel they fit to that.</p>
+<p>Feel free to use these functions as you like and eventually include
+  them into another packages.</p>
 
 <h2>Current features</h2>
 
