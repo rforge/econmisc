@@ -32,7 +32,7 @@ method = c("logistic", "probit", "cloglog", "cauchit"), print.level = 0)
   \item{start}{Initial values for the optimization algorithm.  if
     'NULL', initial values are calculated based on interval means.}
   \item{boundaries}{Boundaries for intervals.  See details}
-  \item{\dots}{further arguments to \code{\link{maxLik}}}
+  \item{\dots}{further arguments to \code{\link[maxLik]{maxLik}}}
   \item{subset}{an optional logical vector specifying a subset of observations to be
           used in the fitting process.}
   \item{na.action}{a function which indicates what should happen when the data
@@ -327,5 +327,5 @@ function(formula, data, weights, start, boundaries,
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{models}
+\keyword{regression}
