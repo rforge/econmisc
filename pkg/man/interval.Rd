@@ -73,6 +73,6 @@ method = c("logistic", "probit", "cloglog", "cauchit"), print.level = 0)
  ~Make other sections like Warning with \section{Warning }{....} ~
 }
 \seealso{\code{\link{polr}}}
-\examples{
+\examples{}
 \keyword{models}
 \keyword{regression}
