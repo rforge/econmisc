@@ -1,5 +1,5 @@
 # load micEcon package
-library( "micEcon" )
+library( "econMisc" )
 
 # some tests with the "germanFarms" data set
 data( "germanFarms", package = "micEcon" )

@@ -16,37 +16,47 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > # load micEcon package
-> library( "micEcon" )
-Loading required package: systemfit
-Loading required package: Matrix
-Loading required package: lattice
+> library( "econMisc" )
+Loading required package: maxLik
+Loading required package: sets
+Loading required package: VGAM
+Loading required package: splines
+Loading required package: stats4
 
-Attaching package: 'Matrix'
+Attaching package: 'VGAM'
+
+
+	The following object(s) are masked from package:splines :
+
+	 bs,
+	 ns 
 
 
 	The following object(s) are masked from package:stats :
 
-	 xtabs 
+	 biplot,
+	 coefficients,
+	 deviance,
+	 df.residual,
+	 effects,
+	 fitted,
+	 fitted.values,
+	 poly,
+	 predict,
+	 resid,
+	 residuals,
+	 weights 
+
+
+	The following object(s) are masked from package:graphics :
+
+	 persp 
 
 
 	The following object(s) are masked from package:base :
 
-	 colMeans,
-	 colSums,
-	 rcond,
-	 rowMeans,
-	 rowSums 
-
-Loading required package: car
-Loading required package: lmtest
-Loading required package: zoo
-
-Attaching package: 'zoo'
-
-
-	The following object(s) are masked from package:base :
-
-	 as.Date.numeric 
+	 identity,
+	 scale.default 
 
 > 
 > # some tests with the "germanFarms" data set
