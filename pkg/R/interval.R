@@ -144,7 +144,8 @@ interval <- function(formula, data, weights, start, boundaries,
            for(i in seq(length=length(boundaries) - 1)) {
               intervals[[i]] <- c(boundaries[i], boundaries[i+1])
            }
-           boundaryInterval <- 2*y - 1
+           boundaryInterval <- y
+                                        # y falls inbetween boundaries 'boundaryInterval' and 'boundaryInterval + 1'
         }
     }
     Y <- matrix(0, nObs, nInterval + 1)
@@ -194,9 +195,14 @@ interval <- function(formula, data, weights, start, boundaries,
           widths <- sapply(intervals, function(x) x[2] - x[1])
           meanWidth <- mean(widths[!is.infinite(widths)])
           negInf <- is.infinite(means) & means < 0
-          means[negInf] <- sapply(intervals[negInf], function(x) x[2] - meanWidth)
+          if(any(negInf)) {
+                                        # if none is true, sapply returns 'list()' and transforms means to a list
+             means[negInf] <- sapply(intervals[negInf], function(x) x[2] - meanWidth)
+          }
           posInf <- is.infinite(means) & means > 0
-          means[posInf] <- sapply(intervals[posInf], function(x) x[1] + meanWidth)
+          if(any(posInf)) {
+             means[posInf] <- sapply(intervals[posInf], function(x) x[1] + meanWidth)
+          }
           yMean <- means[y]
           fit <- lm(yMean ~ x - 1)
           coefs <- coef(fit)
@@ -219,7 +225,11 @@ interval <- function(formula, data, weights, start, boundaries,
 ##     compareDerivatives(loglik, gradlik, t0=start)
 ##     stop()
     res <- maxLik(loglik, gradlik, start=start, method="BHHH", activePar=activePar, iterlim=500, ...)
+    res$param <- list(boundaries=boundaries)
+    class(res) <- c("interval", class(res))
     return(res)
+    ##
+    ## Leftovers from polr
     beta <- coef(res)[seq_len(nBeta)]
     zeta <- coef(res)[iZeta]
     deviance <- 2 * logLik(res)

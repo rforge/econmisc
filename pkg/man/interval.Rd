@@ -51,7 +51,7 @@ method = c("logistic", "probit", "cloglog", "cauchit"), print.level = 0)
 }
 \details{
   Interval regression is a form of linear regression where one observes
-  only interval (i.e numeric bounds) of the continuous outcome
+  only intervals (i.e numeric bounds) of the continuous outcome
   variable.  The current implementation assumes known distribution of
   the error term (default is normal) and estimates the model using
   Maximum Likelihood.
@@ -59,18 +59,23 @@ method = c("logistic", "probit", "cloglog", "cauchit"), print.level = 0)
   The intervals may be specified in two ways: either common intervals
   for all the observations by using argument 'boundaries', or by
   specifying the response as Nx2 matrix, where columns correspond to the
-  lower- and upper bound for the individual observations.
+  lower- and upper bound for the individual observations.  If you
+  specify the common boundaries, you may want to give names to the
+  components of 'boundaries'.  These names will appear to the estimation
+  results.  For observations-specific boundaries, the names are
+  generated automatically.
 }
 \value{
-  Describe the value returned
-  If it is a LIST, use
-  \item{comp1 }{Description of 'comp1'}
-  \item{comp2 }{Description of 'comp2'}
+  Object of class "Interval" which inherits from class "maxLik".  The
+  latter has several methods, including \code{\link{summary}} and
+  \code{\link{coef}}.
+  
+  Note that the boundaries are passed as fixed parameters to the
+  \code{maxLik} estimation routine and hence returned as fixed estimates
+  with 0 standard errors.
 }
-\references{ ~put references to the literature/web site here ~ }
-\author{Ott Toomet \email{otoomet@ut.ee}, based on \code{\link{polr}}}
-\note{ ~~further notes~~ 
- ~Make other sections like Warning with \section{Warning }{....} ~
+\author{Ott Toomet \email{otoomet@ut.ee}}
+\note{A lot of code is borrowed from \code{\link{polr}} from the package MASS
 }
 \seealso{\code{\link{polr}}}
 \examples{
@@ -93,6 +98,25 @@ m <- interval(y ~ sex + log(income) + age + schooling +
 ## You may want to compare the results to Werner (1999),
 ## Journal of Business and Economics Statistics 17(4), pp 479-486
 print(summary(m))
+##
+## Example of common intervals for all the observations
+##
+library(Ecdat)
+data(Bwages)
+## calculate an ordinary Mincer-style wage regression
+## Note: gross hourly wage rate in EUR
+ols <- lm(log(wage) ~ factor(educ) + poly(exper, 2), data=Bwages)
+cat("OLS estimate:\n")
+print(summary(ols))
+## Now we censor the wages to intervals
+intervals <- c(0, 5, 10, 15, 25, Inf)
+salary <- cut(Bwages$wage, intervals)
+int <- interval(salary ~ factor(educ) + poly(exper, 2), data=Bwages, boundaries=log(intervals))
+## Note: use logs for the intervals in Euros.  We do not have to
+## transform salaris to log form as this does not change the intervals.
+## Ignore any warnings
+cat("Interval regression:\n")
+print(summary(int))
 }
 \keyword{models}
 \keyword{regression}
