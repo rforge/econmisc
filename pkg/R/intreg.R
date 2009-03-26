@@ -1,5 +1,5 @@
 ### A hack from the polr() function from MASS for scbs categorical wage data
-interval <- function(formula, data, weights, start, boundaries,
+intreg <- function(formula, data, weights, start, boundaries,
                  ..., subset,
                  na.action, contrasts = NULL, Hess = FALSE,
                  model = TRUE,
@@ -226,7 +226,7 @@ interval <- function(formula, data, weights, start, boundaries,
 ##     stop()
     res <- maxLik(loglik, gradlik, start=start, method="BHHH", activePar=activePar, iterlim=500, ...)
     res$param <- list(boundaries=boundaries)
-    class(res) <- c("interval", class(res))
+    class(res) <- c("Intreg", class(res))
     return(res)
     ##
     ## Leftovers from polr

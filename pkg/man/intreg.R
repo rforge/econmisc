@@ -1,5 +1,5 @@
-\name{interval}
-\alias{interval}
+\name{intreg}
+\alias{intreg}
 \title{Interval Regression}
 \description{
   This function estimates interval regression using either common
@@ -7,7 +7,7 @@
   Normal, logistic, log-log, and Cauchy disturbances are supported.
 }
 \usage{
-interval(formula, data, weights, start, boundaries, ...,
+intreg(formula, data, weights, start, boundaries, ...,
 subset, na.action, contrasts = NULL, Hess = FALSE, model = TRUE,
 method = c("logistic", "probit", "cloglog", "cauchit"), print.level = 0)
 }
@@ -24,7 +24,7 @@ method = c("logistic", "probit", "cloglog", "cauchit"), print.level = 0)
           coercible by 'as.data.frame' to a data frame) containing the
           variables in the model.  If not found in 'data', the
           variables are taken from 'environment(formula)', typically
-          the environment from which 'interval' is called.}
+          the environment from which 'intreg' is called.}
   \item{weights}{an optional vector of weights to be used in the fitting
           process.  Should be 'NULL' or a numeric vector. If non-NULL,
           weighted likelihood is maximized (that
@@ -66,7 +66,7 @@ method = c("logistic", "probit", "cloglog", "cauchit"), print.level = 0)
   generated automatically.
 }
 \value{
-  Object of class "Interval" which inherits from class "maxLik".  The
+  Object of class "Intreg" which inherits from class "maxLik".  The
   latter has several methods, including \code{\link{summary}} and
   \code{\link{coef}}.
   
@@ -91,7 +91,7 @@ ub <- Kakadu$upper
 ub[ub > 998] <- Inf
 ub <- log(ub)
 y <- cbind(lb, ub)
-m <- interval(y ~ sex + log(income) + age + schooling + 
+m <- intreg(y ~ sex + log(income) + age + schooling + 
               recparks + jobs + lowrisk + wildlife + future + aboriginal + finben +
               mineparks + moreparks + gov +
               envcon + vparks + tvenv + major, data=Kakadu)
@@ -111,7 +111,7 @@ print(summary(ols))
 ## Now we censor the wages to intervals
 intervals <- c(0, 5, 10, 15, 25, Inf)
 salary <- cut(Bwages$wage, intervals)
-int <- interval(salary ~ factor(educ) + poly(exper, 2), data=Bwages, boundaries=log(intervals))
+int <- intreg(salary ~ factor(educ) + poly(exper, 2), data=Bwages, boundaries=log(intervals))
 ## Note: use logs for the intervals in Euros.  We do not have to
 ## transform salaris to log form as this does not change the intervals.
 ## Ignore any warnings
