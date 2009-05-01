@@ -1,6 +1,6 @@
 
-coef.marginalEffect <- function(x, ...)
-    x$coefficients
+coef.marginalEffect <- function(object, ...)
+    object$coefficients
 
 marginalEffect <- function(object, ...)
     UseMethod("marginalEffect")
@@ -71,5 +71,5 @@ summary.marginalEffect.probit <- function(object, ...) {
    a
 }
 
-vcov.marginalEffect <- function(x, ...)
-    x$vcov
+vcov.marginalEffect <- function(object, ...)
+    object$vcov
