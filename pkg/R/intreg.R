@@ -154,8 +154,11 @@ intreg <- function(formula, data, weights, start, boundaries,
                                         # .polr are markers for which interval the boundaryInterval falls to
     ## starting values
     iBeta <- seq(length=ncol(x))
+                           # coefficients
     iZeta <- nBeta + seq(along=boundaries)
+                           # boundaries
     iSd <- max(iZeta) + 1
+                           # standard deviation
     if(missing(start)) {
        if(ordered) {
           ## try logistic/probit regression on 'middle' cut
@@ -225,41 +228,10 @@ intreg <- function(formula, data, weights, start, boundaries,
 ##     compareDerivatives(loglik, gradlik, t0=start)
 ##     stop()
     res <- maxLik(loglik, gradlik, start=start, method="BHHH", activePar=activePar, iterlim=500, ...)
-    res$param <- list(boundaries=boundaries)
-    class(res) <- c("Intreg", class(res))
+    res$param <- list(boundaries=boundaries,
+                      index=list(beta=iBeta, boundary=iZeta, sd=iSd),
+                      df=nObs - sum(activePar)
+                      )
+    class(res) <- c("intreg", class(res))
     return(res)
-    ##
-    ## Leftovers from polr
-    beta <- coef(res)[seq_len(nBeta)]
-    zeta <- coef(res)[iZeta]
-    deviance <- 2 * logLik(res)
-    niter <- nIter(res)
-    # names(zeta) <- paste(lev[-length(lev)], lev[-1], sep="|")
-    if(nBeta > 0) {
-        names(beta) <- colnames(x)
-        eta <- drop(x %*% beta)
-    } else {
-        eta <- rep(0, nObs)
-    }
-    cumpr <- matrix(pfun(matrix(zeta, nObs, nInterval - 1, byrow=TRUE) - eta), , nInterval - 1)
-    fitted <- t(apply(cumpr, 1, function(x) diff(c(0, x, 1))))
-    dimnames(fitted) <- list(row.names(m), lev)
-    fit <- list(coefficients = beta, zeta = zeta, deviance = deviance,
-                fitted.values = fitted, lev = lev, terms = Terms,
-                df.residual = sum(wt) - nBeta - nInterval + 1, edf = nBeta + nInterval - 1, n = sum(wt),
-                nobs = sum(wt),
-                call = match.call(), method = method,
-		convergence = returnMessage(res), niter = niter)
-    if(Hess) {
-        dn <- c(names(beta), names(zeta))
-        H <- hessian(res)
-        dimnames(H) <- list(dn, dn)
-        fit$Hessian <- H
-    }
-    if(model) fit$model <- m
-    fit$na.action <- attr(m, "na.action")
-    fit$contrasts <- cons
-    fit$xlevels <- .getXlevels(Terms, m)
-    class(fit) <- "polr"
-    fit
 }
