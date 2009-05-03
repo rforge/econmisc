@@ -1,6 +1,5 @@
 \name{vcovClust}
 \alias{vcovClust}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{Clustering-robust variance-covariance matrices}
 \description{
   Function to calculate clustering-robust variance-covariance matrix.
@@ -10,7 +9,6 @@
 \usage{
 vcovClust(fm, dfcw, cluster)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{fm}{a fitted model}
   \item{dfcw}{degrees-of-freedom adjustment parameter, 1 (= no adjustment) by default}
@@ -22,17 +20,12 @@ vcovClust(fm, dfcw, cluster)
 \value{
   a numeric matrix, clustering-robust variance-covariance matrix.
 }
-\references{ ~put references to the literature/web site here ~ }
+\references{Cameron A. C., Gelbach J. B. and Miller D. L. "Robust
+  Inference with Multi-way Clustering", NBER working paber t0327, 2006}
 \author{Ott Toomet \email{otoomet@ut.ee}}
-\note{ ~~further notes~~ 
-
- ~Make other sections like Warning with \section{Warning }{....} ~
-}
-\seealso{ ~~objects to See Also as \code{\link{help}}, ~~~ }
+%\seealso{\code{\link[pkg:robust]{covRob}}} % is this relevant?
 \examples{
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{models}
 \keyword{regression}
 \keyword{robust}
