@@ -1,13 +1,18 @@
 \name{marginalEffect}
 \Rdversion{1.1}
+\alias{coef.marginalEffect}
 \alias{marginalEffect}
 \alias{marginalEffect.probit}
+\alias{print.marginalEffect}
+\alias{print.summary.marginalEffect.probit}
+\alias{summary.marginalEffect.probit}
+\alias{vcov.marginalEffect}
 \title{
   marginal effects of non-linear models
 }
 \description{
   calculate marginal effects of explanatory variables,
-  primary for non-linear models.  
+  primary for non-linear models.
 }
 \usage{
 marginalEffect(object, ...)
@@ -30,11 +35,11 @@ marginalEffect(object, ...)
   computes the average of marginal effects of individual observations.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+  Object of class 'marginalEffect' (and probably of a more specific
+  class as well, such as 'marginalEffect.probit').
+  
+  There are coef, print, summary, vcov and std methods for extracting
+  the effects, standard deviations, and printing model summaries.
 }
 \author{
   Ott Toomet \email{otoomet@ut.ee}
@@ -44,7 +49,6 @@ marginalEffect(object, ...)
 }
 \examples{
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{models}
+\keyword{regression}
+\keyword{nonlinear}

@@ -1,5 +1,7 @@
 \name{intreg}
 \alias{intreg}
+\alias{print.summary.intreg}
+\alias{summary.intreg}
 \title{Interval Regression}
 \description{
   This function estimates interval regression using either common
@@ -66,9 +68,10 @@ method = c("logistic", "probit", "cloglog", "cauchit"), print.level = 0)
   generated automatically.
 }
 \value{
-  Object of class "Intreg" which inherits from class "maxLik".  The
-  latter has several methods, including \code{\link{summary}} and
-  \code{\link{coef}}.
+  Object of class "intreg" which inherits from class "maxLik".
+
+  There are several methods, including \code{\link{summary}} and
+  \code{\link{coef}}, partly inherited from "maxLik" class.
   
   Note that the boundaries are passed as fixed parameters to the
   \code{maxLik} estimation routine and hence returned as fixed estimates
