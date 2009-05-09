@@ -1,11 +1,14 @@
 
-coef.marginalEffect <- function(object, ...)
+coef.marginalEffects <- function(object, ...)
     object$coefficients
 
 marginalEffect <- function(object, ...)
-    UseMethod("marginalEffect")
+    UseMethod("marginalEffects")
 
-marginalEffect.probit <- function(object, X="all", ...) {
+marginalEffects <- function(object, ...)
+    UseMethod("marginalEffects")
+
+marginalEffects.probit <- function(object, X="all", ...) {
    ## object  object of class 'probit'
    ## X       explanatory variables
    ##         'all'    mean of individual effects on original explanatory variables
@@ -19,14 +22,16 @@ marginalEffect.probit <- function(object, X="all", ...) {
        mean((x %*% beta) * dnorm(x %*% beta)^2)*(beta %*% t(beta))
    Sigma1 <- C %*% Sigma %*% t(C)
    me <- list(coefficients=effects, vcov=Sigma1, ML=object)
-   class(me) <- c("marginalEffect.probit", "marginalEffect", class(object))
+   class(me) <- c("marginalEffects.probit", "marginalEffects", class(object))
+   class(me) <- class(me)[-which(class(me) == "probit")]
+                           # it is _not_ 'probit' object any more
    me
 }
 
-print.marginalEffect <- function(x, ...)
+print.marginalEffects <- function(x, ...)
     print(summary(x, ...))
 
-print.summary.marginalEffect.probit <- function( x, ... ) {
+print.summary.marginalEffects.probit <- function( x, ... ) {
    cat("--------------------------------------------\n")
    cat("Probit marginal effects/Maximum Likelihood estimation\n")
    cat(x$type, ", ", x$iterations, " iterations\n", sep="")
@@ -44,7 +49,7 @@ print.summary.marginalEffect.probit <- function( x, ... ) {
    cat("--------------------------------------------\n")
 }
 
-summary.marginalEffect.probit <- function(object, ...) {
+summary.marginalEffects.probit <- function(object, ...) {
    ## summary for probit -- adds Likelihood Ratio Test to summary.maxLik
    coef <- coef(object)
    stdd <- sqrt(diag(vcov(object)))
@@ -67,9 +72,9 @@ summary.marginalEffect.probit <- function(object, ...) {
           N0=object$ML$param$N0,
           N1=object$ML$param$N1,
           df=object$ML$df)
-   class(a) <- c("summary.marginalEffect.probit", class(a))
+   class(a) <- c("summary.marginalEffects.probit", class(a))
    a
 }
 
-vcov.marginalEffect <- function(object, ...)
+vcov.marginalEffects <- function(object, ...)
     object$vcov
