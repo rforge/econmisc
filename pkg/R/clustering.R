@@ -10,24 +10,29 @@ vcovClust <- function(fm, dfcw, cluster) {
    ## describing the retained rows of the original data.
    ## Is there a better way to extract the omitted rows?
    dataRows <- row.names(model.frame(fm))
-   cluster <- as.matrix(cluster)
+   cl <- as.matrix(as.character(cluster))
+   row.names(cl) <- names(cluster)
                                         # results to Nx1 or Nx2 matrix
-   if(!is.null(row.names(cluster))) {
-      cluster <- cluster[dataRows,,drop=FALSE]
+   if(!is.null(row.names(cl))) {
+      cl <- cl[dataRows,,drop=FALSE]
    }
    else {
-      cluster <- cluster[as.integer(dataRows),,drop=FALSE]
+      cl <- cl[as.integer(dataRows),,drop=FALSE]
    }
    ## extract the clusters
-   cluster1 <- factor(cluster[,1])
+   cluster1 <- factor(cl[,1])
    M1 <- length(levels(cluster1))
    N <- length(cluster1)
    K <- fm$rank
    dfc1  <- (M1/(M1-1))*((N-1)/(N-K))  
    u1j  <- apply(estfun(fm),2, function(x) tapply(x, cluster1, sum));
+   ## remove the components, corresponding to NA coeficients
+   naCoef <- is.na(coef(fm))
+   u1j <- u1j[,!naCoef]
+   ##
    vcovCL <- dfc1*sandwich(fm, meat=crossprod(u1j)/N)
-   if(ncol(cluster) == 2) {
-      cluster2 <- factor(cluster[,2])
+   if(ncol(cl) == 2) {
+      cluster2 <- factor(cl[,2])
       cluster12 <- (as.integer(cluster1) - 1)*length(levels(cluster2)) + as.integer(cluster2)
       cluster12 <- factor(cluster12)
       M2 <- length(levels(cluster2))

@@ -35,13 +35,15 @@
   they are more like miscellaneous or even arbitrary functions we find
   necessary to implement ourselves.  Hence the package.</p>
 
-<p>Feel free to use these functions as you like and eventually include
-  them into another packages.</p>
+<p>Feel free to use these functions as you like, eventually include
+  them into your own packages.</p>
 
 <h2>Current features</h2>
 
 <ul>
   <li>Interval regression</li>
+  <li>Clustered standard errors</li>
+  <li>Quantile regression for panel data (Koenker, 2004)</li>
   </ul>
 
 <p> The <strong>project summary page</strong> you can

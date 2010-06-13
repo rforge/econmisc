@@ -227,7 +227,8 @@ intreg <- function(formula, data, weights, start, boundaries,
     library(maxLik)
 ##     compareDerivatives(loglik, gradlik, t0=start)
 ##     stop()
-    res <- maxLik(loglik, gradlik, start=start, method="BHHH", activePar=activePar, iterlim=500, ...)
+    res <- maxLik(loglik, gradlik, start=start,
+                  method="BHHH", activePar=activePar, iterlim=500, ...)
     res$param <- list(boundaries=boundaries,
                       index=list(beta=iBeta, boundary=iZeta, sd=iSd),
                       df=nObs - sum(activePar)
