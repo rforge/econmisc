@@ -12,7 +12,7 @@ incidence.csr <- function(s) {
        )
 }
 
-rqp <- function(formula, subset, strata,
+prq <- function(formula, subset, strata,
                      taus=(1:3)/4,
                 w = taus*(1 - taus)/sum(taus*(1 - taus)),
                      lambda = 1e5,
