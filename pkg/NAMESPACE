@@ -1,1 +1,3 @@
 useDynLib(econMisc, .registration=TRUE)
+exportPattern("^[^\\.]")
+                           # we export everything not starting with '.'
