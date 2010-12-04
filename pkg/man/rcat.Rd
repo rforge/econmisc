@@ -18,15 +18,15 @@ rcat(n, prob)
     numeric, probabilities of categories.  The length (or number of
     columns) determines the number of categories which will be numbered
     as 1 to K.  This may be either a vector of length
-    K for
-    similar probabilities for all the draws, or a n by K matrix, where
+    K, given the
+    probabilities are equal for all the draws, or a n by K matrix, where
     each row specifies the probabilities for the corresponding draw.
 
     The probabilities are normalized internally to sum to unity by rows.
 }
 }
 \details{
-  The function is implemented in C++.
+  The function is implemented in C++ using \pkg{Rcpp}.
 }
 \value{
   An integer vector of length n, the random draws from the categories.

@@ -18,6 +18,8 @@ RcppExport SEXP do_rcat(SEXP arg_prob) {
 // by rows
     Matrix<REALSXP> prob(arg_prob);
     int i, j;
+    RNGScope scope;
+    // needed to initialize/release RNG
     NumericVector rnd(runif(prob.nrow()));
     // uniform random numbers
     IntegerVector r(prob.nrow());
@@ -27,7 +29,8 @@ RcppExport SEXP do_rcat(SEXP arg_prob) {
 	for(j = 0; j < prob.ncol(); j++) {
 	    s += prob(i, j);
 	    if(rnd(i) < s) {
-		r(i) = j;
+		r(i) = j + 1;
+		// +1 -- we start counting from 1
 		break;
 	    }
 	}

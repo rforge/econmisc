@@ -16,6 +16,7 @@ rcat <- function(n, prob) {
    }
    prob <- prob/rowSums(prob)
    storage.mode(prob) <- "double"
-   r <- .Call("do_rcat", prob, PACKAGE="econMisc")
-   1 + r
+#   r <- .Call("do_rcat", prob, PACKAGE="econMisc")
+   r <- .Call("do_rcat", prob)
+   r
 }    
