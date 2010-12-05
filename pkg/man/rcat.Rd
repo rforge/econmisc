@@ -23,7 +23,15 @@ rcat(n, prob)
     each row specifies the probabilities for the corresponding draw.
 
     The probabilities are normalized internally to sum to unity by rows.
-}
+  }
+  \item{na.rm}{logical, how the \code{NA}-s are treated.  If
+    \code{TRUE}, \code{NA} values are set to zero.  If all the values in
+    a row are \code{NA}, the function retuns \code{NA} for that row as
+    well.
+
+    IF \code{FALSE}, an error is thrown if \code{NA} is found in the
+    \code{prob}.
+  }
 }
 \details{
   The function is implemented in C++ using \pkg{Rcpp}.
