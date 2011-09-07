@@ -63,7 +63,7 @@ summary.lmc <- function(object, correlation=FALSE,
 ##     R <- chol2inv(Qr$qr[p1, p1, drop = FALSE])
 ##     se <- sqrt(diag(R) * resvar)
    se <- sqrt(diag(vcov))
-    est <- z$coefficients[Qr$pivot[p1]]
+   est <- z$coefficients[Qr$pivot[p1]]
     tval <- est/se
     ans <- z[c("call", "terms")]
     ans$residuals <- r

@@ -1,20 +1,20 @@
-vcovClust <- function(fm, dfcw, cluster) {
+vcovClust <- function(fm, dfcw, strata) {
    ## Clustering-robust variance-covariance matrix
    ## 
    ## fm       fitted model
    ## dfcw     degrees of freedom correction
-   ## cluster  factor: indicator for clusters
+   ## strata  factor: indicator for clusters
    ## 
    ## This code borrows a lot from Mahmood Arai
    library(sandwich);
    library(lmtest)
    ## if NA-observations are omitted from the model frame, we have to remove the corresponding elements from cluster as well.
-   ## we do it by row names of model frame and hope that either 1) cluster has the same row names, or 2) row names are integers,
+   ## we do it by row names of model frame and hope that either 1) strata has the same row names, or 2) row names are integers,
    ## describing the retained rows of the original data.
    ## Is there a better way to extract the omitted rows?
    dataRows <- row.names(model.frame(fm))
-   cl <- as.matrix(as.character(cluster))
-   row.names(cl) <- names(cluster)
+   cl <- as.matrix(as.character(strata))
+   row.names(cl) <- names(strata)
                                         # results to Nx1 or Nx2 matrix
    if(!is.null(row.names(cl))) {
       cl <- cl[dataRows,,drop=FALSE]
