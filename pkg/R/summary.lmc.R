@@ -3,9 +3,9 @@ summary.lmc <- function(object, correlation=FALSE,
    ## Overwritten summary.lm in order to easily print clustering-robust results
    ##
    ## object: a lm-type of object
-   if(missing(cluster))
+   if(is.null(object$strata))
        return(stats::summary.lm(object, ...))
-   vcov <- vcovClust(object, 1, object$cluster)
+   vcov <- vcovClust(object, 1, object$strata)
    ## The rest is borrowed from 'stats::summary.lm'
    z <- object
     p <- z$rank

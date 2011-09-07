@@ -1,7 +1,10 @@
 vcovClust <- function(fm, dfcw, cluster) {
+   ## Clustering-robust variance-covariance matrix
+   ## 
    ## fm       fitted model
    ## dfcw     degrees of freedom correction
    ## cluster  factor: indicator for clusters
+   ## 
    ## This code borrows a lot from Mahmood Arai
    library(sandwich);
    library(lmtest)
