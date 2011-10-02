@@ -7,12 +7,14 @@
   designed. 
 }
 \usage{
-vcovClust(fm, dfcw, cluster)
+vcovClust(fm, dfcw, strata)
 }
 \arguments{
   \item{fm}{a fitted model}
   \item{dfcw}{degrees-of-freedom adjustment parameter, 1 (= no adjustment) by default}
-  \item{cluster}{a vector or nObsx2 matrix of clustering indicators}
+  \item{strata}{a vector of length \code{nObs(fm)} or \code{nObs(fm)*2}
+    matrix of clustering (strata) indicators
+  }
 }
 \details{
   works for OLS but should be easier to use.  Uses sandwich package.

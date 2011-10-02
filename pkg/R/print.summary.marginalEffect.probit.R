@@ -1,16 +1,4 @@
 
-coef.marginalEffects <- function(object, ...)
-    object$coefficients
-
-marginalEffect <- function(object, ...)
-    UseMethod("marginalEffects")
-
-marginalEffects <- function(object, ...)
-    UseMethod("marginalEffects")
-
-print.marginalEffects <- function(x, ...)
-    print(summary(x, ...))
-
 print.summary.marginalEffects.probit <- function( x, ... ) {
    cat("--------------------------------------------\n")
    cat("Probit marginal effects/Maximum Likelihood estimation\n")
@@ -28,6 +16,3 @@ print.summary.marginalEffects.probit <- function( x, ... ) {
    cat("chi2(", x$LRT$df, ") = ", x$LRT$LRT, " (p=", x$LRT$pchi2, ")\n", sep="")
    cat("--------------------------------------------\n")
 }
-
-vcov.marginalEffects <- function(object, ...)
-    object$vcov

@@ -8,7 +8,7 @@
   range 1 to K).  The probabilities may differ for each draw.
 }
 \usage{
-rcat(n, prob)
+rcat(n, prob, na.rm=TRUE)
 }
 \arguments{
   \item{n}{
@@ -24,7 +24,7 @@ rcat(n, prob)
 
     The probabilities are normalized internally to sum to unity by rows.
   }
-  \item{na.rm}{logical, how the \code{NA}-s are treated.  If
+  \item{na.rm}{logical, how the \code{NA}-s in \code{prob} are treated.  If
     \code{TRUE}, \code{NA} values are set to zero.  If all the values in
     a row are \code{NA}, the function retuns \code{NA} for that row as
     well.

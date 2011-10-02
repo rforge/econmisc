@@ -7,12 +7,15 @@
   This function finds the maximum values of matrix rows
 }
 \usage{
-rowMax(mat)
+rowMax(mat, na.rm=TRUE)
 }
 \arguments{
   \item{mat}{
     numeric (including integer) matrix
-}
+  }
+  \item{na.rm}{logical, what to do with the \code{NA} values in data
+    rows.
+  }
 }
 \details{
   \code{NA}-s are currently not handled
