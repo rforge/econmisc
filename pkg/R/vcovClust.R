@@ -1,4 +1,4 @@
-vcovClust <- function(fm, dfcw, strata) {
+vcovClust <- function(fm, dfcw=1, strata) {
    ## Clustering-robust variance-covariance matrix
    ## 
    ## fm       fitted model

@@ -91,7 +91,7 @@ summary.lmc <- function(object, correlation=FALSE,
     if (correlation) {
         ans$correlation <- vcov/outer(se, se)
         dimnames(ans$correlation) <- dimnames(ans$cov.unscaled)
-        ans$symbolic.cor <- symbolic.cor
+#        ans$symbolic.cor <- symbolic.cor
     }
     if (!is.null(z$na.action)) 
         ans$na.action <- z$na.action

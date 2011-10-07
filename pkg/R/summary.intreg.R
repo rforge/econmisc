@@ -4,6 +4,7 @@ summary.intreg <- function(object, ...) {
       ## we have not estimated the boundaries -> do no print them
       estimate <- estimate[-object$param$index$boundary,,drop=FALSE]
    }
+   library(maxLik)
    s <- summary.maxLik(object)
    s$estimate <- estimate
    class(s) <- c("summary.intreg", class(s))

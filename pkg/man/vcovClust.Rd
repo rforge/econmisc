@@ -3,11 +3,10 @@
 \title{Clustering-robust variance-covariance matrices}
 \description{
   Function to calculate clustering-robust variance-covariance matrix.
-  Currently works for OLS and 1 or 2-way clustering.  Interface not well
-  designed. 
+  Currently works for 1 or 2-way clustering.   
 }
 \usage{
-vcovClust(fm, dfcw, strata)
+vcovClust(fm, dfcw=1, strata)
 }
 \arguments{
   \item{fm}{a fitted model}
@@ -17,7 +16,7 @@ vcovClust(fm, dfcw, strata)
   }
 }
 \details{
-  works for OLS but should be easier to use.  Uses sandwich package.
+  works for models which have 'vcov' method.
 }
 \value{
   a numeric matrix, clustering-robust variance-covariance matrix.
@@ -27,6 +26,19 @@ vcovClust(fm, dfcw, strata)
 \author{Ott Toomet \email{otoomet@ut.ee}}
 %\seealso{\code{\link[pkg:robust]{covRob}}} % is this relevant?
 \examples{
+## Explain crime rate in NC by minority percentage (pctmin) and various wages (wxxx).
+## For each county there are 7 observations with the same minority percentage
+## As minority percentage is county specific, we have to cluster over it
+library(Ecdat)
+m <- lm(crmrte ~ pctmin + factor(year) +
+        polpc + smsa + wcon + wtrd + wmfg + wsta +
+        pctymle,
+        data=Crime)
+vc <- vcovClust(a, strata=Crime$county)
+## compare the corresponding standard errors
+library(miscTools)
+rbind(sqrt(diag(vc)), stdEr(m))
+                        # Note standard errors for pctmin and polpc have increased substantially
 }
 \keyword{models}
 \keyword{regression}
