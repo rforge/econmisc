@@ -5,7 +5,7 @@ summary.intreg <- function(object, ...) {
       estimate <- estimate[-object$param$index$boundary,,drop=FALSE]
    }
    library(maxLik)
-   s <- summary.maxLik(object)
+   s <- maxLik:::summary.maxLik(object)
    s$estimate <- estimate
    class(s) <- c("summary.intreg", class(s))
    return(s)
