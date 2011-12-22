@@ -1,4 +1,5 @@
-### A hack from the polr() function from MASS for scbs categorical wage data
+
+### Based on polr() function in MASS (originally developed for categorical wage data in Social Capital Benchmark Survey)
 intreg <- function(formula, data, weights, start, boundaries,
                  ..., subset,
                  na.action, contrasts = NULL, Hess = FALSE,
@@ -12,8 +13,8 @@ intreg <- function(formula, data, weights, start, boundaries,
     ## log likelihood
     loglik <- function(theta) {
        beta <- theta[iBeta]
-        zeta <- theta[iZeta]
-        sd <- theta[iSd]
+        zeta <- theta[iBoundaries]
+        sd <- theta[iStd]
         eta <- offset
         if (nBeta > 0)
             eta <- eta + drop(x %*% beta)
@@ -35,8 +36,8 @@ intreg <- function(formula, data, weights, start, boundaries,
             mat
          }
         beta <- theta[iBeta]
-        zeta <- theta[iZeta]
-        sigma <- theta[iSd]
+        zeta <- theta[iBoundaries]
+        sigma <- theta[iStd]
         eta <- offset
         if(nBeta > 0)
             eta <- eta + drop(x %*% beta)
@@ -155,11 +156,14 @@ intreg <- function(formula, data, weights, start, boundaries,
     ## starting values
     iBeta <- seq(length=ncol(x))
                            # coefficients
-    iZeta <- nBeta + seq(along=boundaries)
+    iBoundaries <- nBeta + seq(along=boundaries)
                            # boundaries
-    iSd <- max(iZeta) + 1
+    iStd <- max(iBoundaries) + 1
                            # standard deviation
     if(missing(start)) {
+       start <- numeric(max(iBeta, iBoundaries, iStd))
+                           # +1 for the error variance 'sigma'
+       activePar <- logical(length(start))
        if(ordered) {
           ## try logistic/probit regression on 'middle' cut
           q1 <- nInterval %/% 2
@@ -208,14 +212,19 @@ intreg <- function(formula, data, weights, start, boundaries,
           }
           yMean <- means[y]
           fit <- lm(yMean ~ x - 1)
-          coefs <- coef(fit)
-          names(coefs) <- gsub("^x", "", names(coefs))
-          zetas <- boundaries
-          activePar <- c(TRUE, rep(TRUE, length(coefs) - 1), rep(FALSE, length(boundaries)), TRUE)
-                                        # intercept is free
+          xCoefs <- coef(fit)
+          names(xCoefs) <- gsub("^x", "", names(xCoefs))
+          activePar[iBeta] <- TRUE
+          activePar[iBoundaries] <- FALSE
+          activePar[iStd] <- TRUE
           sigma <- sqrt(var(fit$residuals))
        }
-       start <- c(coefs, zetas, "sigma"=sigma)
+       start[iBeta] <- xCoefs
+       names(start)[iBeta] <- names(xCoefs)
+       start[iBoundaries] <- boundaries
+       names(start)[iBoundaries] <- names(boundaries)
+       start[iStd] <- sigma
+       names(start)[iStd] <- "sigma"
     }
     else
         if(length(start) != nBeta + nInterval)
@@ -229,8 +238,9 @@ intreg <- function(formula, data, weights, start, boundaries,
 ##     stop()
     res <- maxLik(loglik, gradlik, start=start,
                   method="BHHH", activePar=activePar, iterlim=500, ...)
-    res$param <- list(boundaries=boundaries,
-                      index=list(beta=iBeta, boundary=iZeta, sd=iSd),
+    res$param <- list(ordered=ordered,
+                      boundaries=boundaries,
+                      index=list(beta=iBeta, boundary=iBoundaries, std=iStd),
                       df=nObs - sum(activePar)
                       )
     class(res) <- c("intreg", class(res))

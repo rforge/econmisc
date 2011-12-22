@@ -12,6 +12,8 @@
 intreg(formula, data, weights, start, boundaries, ...,
 subset, na.action, contrasts = NULL, Hess = FALSE, model = TRUE,
 method = c("logistic", "probit", "cloglog", "cauchit"), print.level = 0)
+%
+print.summary.intreg(x, digits=max(3, getOption("digits") - 3), boundaries=FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,7 +35,9 @@ method = c("logistic", "probit", "cloglog", "cauchit"), print.level = 0)
           is, maximising 'sum(w*loglik)').}
   \item{start}{Initial values for the optimization algorithm.  if
     'NULL', initial values are calculated based on interval means.}
-  \item{boundaries}{Boundaries for intervals.  See details}
+  \item{boundaries}{Boundaries for intervals.  See details.  For
+    printing output, this is a logical to indicate whether output the
+    boundaries.  Default no.}
   \item{\dots}{further arguments to \code{\link[maxLik]{maxLik}}}
   \item{subset}{an optional logical vector specifying a subset of observations to be
           used in the fitting process.}
@@ -50,6 +54,8 @@ method = c("logistic", "probit", "cloglog", "cauchit"), print.level = 0)
     "logistic", "probit", "cloglog" or "cauchit".}
   \item{print.level}{output of run-time information: higher level prints
     more.}
+  \item{x}{object of class \sQuote{intreg}, an estimated model}
+  \item{digits}{numeric, how many digits to output}
 }
 \details{
   Interval regression is a form of linear regression where one observes
@@ -80,7 +86,7 @@ method = c("logistic", "probit", "cloglog", "cauchit"), print.level = 0)
 \author{Ott Toomet \email{otoomet@ut.ee}}
 \note{A lot of code is borrowed from \code{\link{polr}} from the package MASS
 }
-\seealso{\code{\link{polr}}}
+\seealso{\code{\link[MASS]{polr}}}
 \examples{
 ## Example of observation-specific boundaries
 ## Estimate the willingness to pay for the Kakadu National Park
@@ -106,7 +112,8 @@ print(summary(m))
 ##
 library(Ecdat)
 data(Bwages)
-## calculate an ordinary Mincer-style wage regression
+## calculate an ordinary Mincer-style wage regression.  First by OLS and
+## thereafter cut the wage to intervals and estimate with 'intreg'
 ## Note: gross hourly wage rate in EUR
 ols <- lm(log(wage) ~ factor(educ) + poly(exper, 2), data=Bwages)
 cat("OLS estimate:\n")
