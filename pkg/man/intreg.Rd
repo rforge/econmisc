@@ -5,7 +5,7 @@
 \title{Interval Regression}
 \description{
   This function estimates interval regression using either common
-  intervals to all observations, or observation-specific intervals.
+  intervals for all observations, or observation-specific intervals.
   Normal, logistic, log-log, and Cauchy disturbances are supported.
 }
 \usage{
@@ -20,46 +20,47 @@ print.summary.intreg(x, digits=max(3, getOption("digits") - 3), boundaries=FALSE
   \item{formula}{an object of class '"formula"' (or one that can be coerced to
           that class): a symbolic description of the model to be
           fitted.  The left-hand-side variable must be either a factor,
-	  decribing the intervals, observations fall to, or a matrix of
-	  two columns, describing the interval boundaries by
+	  describing the intervals where the observations fall to, or a matrix of
+	  two columns, describing the interval boundaries for each
 	  observation.  See details below, see
 	  also \code{\link{lm}} for explanation how to write formulas.}
   \item{data}{an optional data frame, list or environment (or object
           coercible by 'as.data.frame' to a data frame) containing the
           variables in the model.  If not found in 'data', the
           variables are taken from 'environment(formula)', typically
-          the environment from which 'intreg' is called.}
+          the environment from which \sQuote{intreg} is called.}
   \item{weights}{an optional vector of weights to be used in the fitting
           process.  Should be 'NULL' or a numeric vector. If non-NULL,
           weighted likelihood is maximized (that
-          is, maximising 'sum(w*loglik)').}
+          is, maximizing \sQuote{sum(w*loglik)}).}
   \item{start}{Initial values for the optimization algorithm.  if
-    'NULL', initial values are calculated based on interval means.}
+    \sQuote{NULL}, initial values are calculated based on interval means.}
   \item{boundaries}{Boundaries for intervals.  See details.  For
-    printing output, this is a logical to indicate whether output the
-    boundaries.  Default no.}
+    printing output, a logical value indicating whether output the
+    boundaries.}
   \item{\dots}{further arguments to \code{\link[maxLik]{maxLik}}}
   \item{subset}{an optional logical vector specifying a subset of observations to be
           used in the fitting process.}
   \item{na.action}{a function which indicates what should happen when the data
-          contain 'NA's.  The default is set by the 'na.action' setting
-          of 'options', and is 'na.fail' if that is unset.  The
-          'factory-fresh' default is 'na.omit'.  Another possible value
-          is 'NULL', no action.  Value 'na.exclude' can be useful.}
-  \item{contrasts}{an optional list. See the 'contrasts.arg' of
+          contain \sQuote{NA}s.  The default is set by the \sQuote{na.action} setting
+          of sQuote{options}, and is \sQuote{na.fail} if that is unset.  The
+          \dQuote{factory-fresh} default is \sQuote{na.omit}.  Another possible value
+          is \sQuote{NULL}, no action.  Value \sQuote{na.exclude} can be useful.}
+  \item{contrasts}{an optional list. See the \sQuote{contrasts.arg} of
           \code{\link{model.matrix.default}}.}
   \item{Hess}{Should Hessian of the model be returned}
   \item{model}{logical for whether the model matrix should be returned.}
   \item{method}{character, distribution of disturbances: either
-    "logistic", "probit", "cloglog" or "cauchit".}
+    \sQuote{logistic}, \sQuote{probit}, \sQuote{cloglog} or \sQuote{cauchit}.}
   \item{print.level}{output of run-time information: higher level prints
     more.}
   \item{x}{object of class \sQuote{intreg}, an estimated model}
   \item{digits}{numeric, how many digits to output}
 }
 \details{
-  Interval regression is a form of linear regression where one observes
-  only intervals (i.e numeric bounds) of the continuous outcome
+  Interval regression is a form of linear regression where only
+  intervals (i.e numeric upper and lower bounds) where the observations fall are
+  visible of the otherwise continuous outcome
   variable.  The current implementation assumes known distribution of
   the error term (default is normal) and estimates the model using
   Maximum Likelihood.
@@ -69,7 +70,8 @@ print.summary.intreg(x, digits=max(3, getOption("digits") - 3), boundaries=FALSE
   specifying the response as Nx2 matrix, where columns correspond to the
   lower- and upper bound for the individual observations.  If you
   specify the common boundaries, you may want to give names to the
-  components of 'boundaries'.  These names will appear to the estimation
+  components of 'boundaries'.  Otherwise they will be names
+  \sQuote{Boundary 1}, \sQuote{Boundary 2} etc.  These names will appear to the estimation
   results.  For observations-specific boundaries, the names are
   generated automatically.
 }
@@ -81,10 +83,10 @@ print.summary.intreg(x, digits=max(3, getOption("digits") - 3), boundaries=FALSE
   
   Note that the boundaries are passed as fixed parameters to the
   \code{maxLik} estimation routine and hence returned as fixed estimates
-  with 0 standard errors.
+  with standard errors set to zero.
 }
-\author{Ott Toomet \email{otoomet@ut.ee}}
-\note{A lot of code is borrowed from \code{\link{polr}} from the package MASS
+\author{Ott Toomet \email{otoomet@gmail.com}}
+\note{A lot of code is borrowed from \code{\link[MASS]{polr}} from the package MASS
 }
 \seealso{\code{\link[MASS]{polr}}}
 \examples{

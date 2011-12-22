@@ -98,7 +98,8 @@ intreg <- function(formula, data, weights, start, boundaries,
     if(length(offset) <= 1) offset <- rep(0, nObs)
     y <- model.response(m)
     if(is.matrix(y)) {
-       ## use the intervals, given for each observation.  We have interval regression and the interval boundaries are fixed
+       ## Use the intervals, given for each observation.  We have interval regression and the interval boundaries are fixed.
+       ## Save boundaries as a sequence of pairs of L,B boundaries
        ordered <- FALSE
        dimnames(y) <- NULL
        lowerBound <- y[,1]
@@ -129,7 +130,9 @@ intreg <- function(formula, data, weights, start, boundaries,
        nInterval <- length(boundaries) - 1
     }
     else {
-       ## response is given as an ordered factor
+       ## response is given as an ordered factor, boundaries must be given separately.
+       ## Save them as a vector of boundaries, all numbers (except the first, last) represent the upper boundary of
+       ## the smaller interval and the lower boundary of the upper interval at the same time.
        lev <- levels(y)
        if(length(lev) <= 2)
            stop("response must have 3 or more levels")
@@ -148,6 +151,8 @@ intreg <- function(formula, data, weights, start, boundaries,
            boundaryInterval <- y
                                         # y falls inbetween boundaries 'boundaryInterval' and 'boundaryInterval + 1'
         }
+       if(is.null(names(boundaries)))
+           names(boundaries) <- paste("Boundary", seq(along=boundaries))
     }
     Y <- matrix(0, nObs, nInterval + 1)
     .polrY1 <- col(Y) == boundaryInterval + 1

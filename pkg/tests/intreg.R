@@ -24,13 +24,8 @@ print(summary(m))
 ##
 library(Ecdat)
 data(Bwages)
-## calculate an ordinary Mincer-style wage regression.  First by OLS and
-## thereafter cut the wage to intervals and estimate with 'intreg'
+## calculate an ordinary Mincer-style wage regression.  
 ## Note: gross hourly wage rate in EUR
-ols <- lm(log(wage) ~ factor(educ) + poly(exper, 2), data=Bwages)
-cat("OLS estimate:\n")
-print(summary(ols))
-## Now we censor the wages to intervals
 intervals <- c(0, 5, 10, 15, 25, Inf)
 salary <- cut(Bwages$wage, intervals)
 int <- intreg(salary ~ factor(educ) + poly(exper, 2), data=Bwages, boundaries=log(intervals))
