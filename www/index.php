@@ -41,9 +41,9 @@
 <h2>Current features</h2>
 
 <ul>
-  <li>Interval regression</li>
   <li>Clustered standard errors</li>
   <li>Quantile regression for panel data (Koenker, 2004)</li>
+  <li>Interval regression moved to "intReg" package</li>
   </ul>
 
 <p> The <strong>project summary page</strong> you can
