@@ -3,7 +3,8 @@ vcovClust <- function(fm, dfcw=1, strata) {
    ## 
    ## fm       fitted model
    ## dfcw     degrees of freedom correction
-   ## strata  factor: indicator for clusters
+   ## strata   factor: indicator for clusters, Nx1 or Nx2 matrix
+   ##          or N-vector
    ## 
    ## This code borrows a lot from Mahmood Arai
    library(sandwich);
@@ -13,8 +14,7 @@ vcovClust <- function(fm, dfcw=1, strata) {
    ## describing the retained rows of the original data.
    ## Is there a better way to extract the omitted rows?
    dataRows <- row.names(model.frame(fm))
-   cl <- as.matrix(as.character(strata))
-   row.names(cl) <- names(strata)
+   cl <- as.matrix(strata)
                                         # results to Nx1 or Nx2 matrix
    if(!is.null(row.names(cl))) {
       cl <- cl[dataRows,,drop=FALSE]
@@ -28,10 +28,12 @@ vcovClust <- function(fm, dfcw=1, strata) {
    N <- length(cluster1)
    K <- fm$rank
    dfc1  <- (M1/(M1-1))*((N-1)/(N-K))  
-   u1j  <- apply(estfun(fm),2, function(x) tapply(x, cluster1, sum));
+   u1j  <- apply(estfun(fm),2, function(x) tapply(x, cluster1, sum))
    ## remove the components, corresponding to NA coeficients
    naCoef <- is.na(coef(fm))
-   u1j <- u1j[,!naCoef]
+#   u1j <- u1j[,!naCoef]
+                           # seems NA-s are already removed from
+                           # estfun()?
    ##
    vcovCL <- dfc1*sandwich(fm, meat=crossprod(u1j)/N)
    if(ncol(cl) == 2) {
@@ -48,7 +50,7 @@ vcovClust <- function(fm, dfcw=1, strata) {
       vc12  <- dfc12*sandwich(fm, meat=crossprod(u12j)/N)
       vcovCL <- vcovCL + vc2 - vc12
    }
-   if(any(diag(vcovCL) < 0)) {
+   if(any(diag(vcovCL) < 0, na.rm=TRUE)) {
       warning("diagonal of cluster-robust covariance matrix not positive")
    }
    vcovCL*dfcw
